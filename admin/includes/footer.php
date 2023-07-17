@@ -49,15 +49,30 @@
 	<script src="assets/js/app.js"></script>
     <script>
 		jQuery(document).ready(function() {	
-			
-			setInterval(load_orders, 1000);
-			setInterval(load_paypal_orders, 1000);
-			setInterval(count_customers, 1000);
-			setInterval(count_orders, 1000);
-			setInterval(count_categories, 1000);
-			setInterval(count_brands, 1000);
-			setInterval(notifications, 1000);
-			setInterval(product_review, 1000);
+			// ** First time initialization
+            <?php if($_SERVER["PHP_SELF"] == "/admin/index.php") { ?>
+                load_orders();
+                load_paypal_orders();
+                count_customers();
+                count_orders();
+                count_categories();
+                count_brands();
+                notifications();
+                product_review();
+            <?php } else { ?>
+                notifications();
+                product_review();
+            <?php } ?>
+
+            // ** Interval after each 10 seconds for update
+			setInterval(load_orders, 10000);
+			setInterval(load_paypal_orders, 10000);
+			setInterval(count_customers, 10000);
+			setInterval(count_orders, 10000);
+			setInterval(count_categories, 10000);
+			setInterval(count_brands, 10000);
+			setInterval(notifications, 10000);
+			setInterval(product_review, 10000);
 			function load_orders() {
 				$.ajax({ // create an ajax request to load_orders.php
 					type: "GET",

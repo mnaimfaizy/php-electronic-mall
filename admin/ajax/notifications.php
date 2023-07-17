@@ -1,15 +1,24 @@
 <?php require_once('../includes/initialize.php'); ?>
 
 <?php
-	$query = "SELECT COUNT(*) AS orderTotal FROM orders WHERE `date_ordered` >=" . (time()-(60*60*24));
+	$query = "SELECT order_id, COUNT(order_id) AS orderTotal 
+                FROM orders 
+                WHERE `date_ordered` >=" . (time()-(60*60*24))." 
+                GROUP BY order_id";
 		$queryResult = $database->query($query);
 		$order = $database->fetch_array($queryResult);
 		@$orders = $order['orderTotal'];
-	$sql = "SELECT date_added, COUNT(*) AS total FROM customer WHERE date_added >=" . (time()-(60*60*24));
+	$sql = "SELECT customer_id, date_added, COUNT(customer_id) AS total 
+                FROM customer 
+                WHERE date_added >=" . (time()-(60*60*24))." 
+                GROUP BY customer_id, date_added";
 		$sqlResult = $database->query($sql);
 		$row = $database->fetch_array($sqlResult);
 		@$new_customers = $row['total'];
-	$sql = "SELECT date_added, COUNT(*) AS paypaltotal FROM paypal_checkout WHERE date_added >=" . (time()-(60*60*24));
+	$sql = "SELECT paypal_id, date_added, COUNT(paypal_id) AS paypaltotal 
+                FROM paypal_checkout 
+                WHERE date_added >=" . (time()-(60*60*24)). "
+                GROUP BY paypal_id, date_added";
 		$sqlResult = $database->query($sql);
 		$row = $database->fetch_array($sqlResult);
 		@$new_paypal_orders = $row['paypaltotal'];

@@ -2,12 +2,12 @@
 <?php
 	global $database;
 	if(isset($_POST['submit'])) {
-		$name = mysql_real_escape_string($_POST['name']);
-		$email = mysql_real_escape_string($_POST['email']);
-		$review = mysql_real_escape_string($_POST['review']);
-		$rating = mysql_real_escape_string($_POST['rating']);
+		$name = $database->escape_value($_POST['name']);
+		$email = $database->escape_value($_POST['email']);
+		$review = $database->escape_value($_POST['review']);
+		$rating = $database->escape_value($_POST['rating']);
 		$date_added = time();
-		$product_id = mysql_real_escape_string($_POST['product_id']);
+		$product_id = $database->escape_value($_POST['product_id']);
 		$status = 'active';
 		
 		$query = "INSERT INTO `product_review`

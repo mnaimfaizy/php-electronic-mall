@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  php_electronic_mall_app:
+    container_name: php_electronic_mall_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - php_electronics_mall_db
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 9003:80
+    networks:
+      - php_electronics_mall_net
+
+  php_electronics_mall_db:
+    container_name: php_electronics_mall_db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "Kabul@123"
+      MYSQL_DATABASE: "php_electronics_mall"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "Kabul@123"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    ports:
+      - "33069:3306"
+    networks:
+      - php_electronics_mall_net
+
+volumes:
+  mysql_data:
+
+networks:
+  php_electronics_mall_net:

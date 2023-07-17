@@ -3,10 +3,11 @@
 class MySQLDatabase {
 
 	# Database Connection Variables
-	protected $_db_server = 'localhost';
+	protected $_db_server = '192.168.1.104';
 	protected $_db_user		= 'root';
-	protected $_db_pass		= '';
-	protected $_db_name		= 'e-mall';
+	protected $_db_pass		= 'Kabul@123';
+	protected $_db_name		= 'php_electronics_mall';
+	protected  $_db_port 	= 33069;
 
 	# Other variables used in the entire class
 	private $connection;
@@ -16,13 +17,13 @@ class MySQLDatabase {
 
 	function __construct() {
 		$this->open_connection();
-		$this->magic_quotes_active = get_magic_quotes_gpc();
-		$this->real_escape_string = function_exists("mysqli_real_escape_string");
+		$this->magic_quotes_active = (bool) ini_get('magic_quotes_gpc');
+		$this->real_escape_string = function_exists('mysqli_real_escape_string');
 	}
 
 	# open a connection to the database
 	public function open_connection() {
-		$this->connection = mysqli_connect($this->_db_server, $this->_db_user, $this->_db_pass, $this->_db_name);
+		$this->connection = mysqli_connect($this->_db_server, $this->_db_user, $this->_db_pass, $this->_db_name, $this->_db_port);
 		if(!$this->connection) {
 			die("Database connection failed: " . mysqli_error());	# check database is connected or through errors
 		}
@@ -44,12 +45,13 @@ class MySQLDatabase {
 	}
 
 	private function confirm_query($result) {
-		if(!$result) {
-			$output = "Database query failed: " . mysqli_error() . "<br /><br />";
+		if (!$result) {
+			$output = "Database query failed: " . mysqli_error($this->connection) . "<br /><br />";
 			$output .= "Last SQL query: " . $this->last_query;
 			die($output);
 		}
 	}
+
 
 	public function escape_value($value) {
 

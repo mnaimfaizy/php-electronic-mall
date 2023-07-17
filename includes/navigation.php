@@ -53,7 +53,7 @@
                            <!-- Shopping cart button -->
                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart" style="margin-top: 0px;">
                             <i class="fa fa-shopping-cart"></i> &nbsp; &nbsp; Shopping Cart: item
-                            <?php if(isset($_SESSION['cart_array']) || count(@$_SESSION['cart_array']) >= 1) { 
+                            <?php if(isset($_SESSION['cart_array']) && is_array($_SESSION['cart_array']) && count(@$_SESSION['cart_array']) >= 1) {
 								echo "( " . count($_SESSION['cart_array']) . " )";
 							} else {
 								echo '( 0 )';
