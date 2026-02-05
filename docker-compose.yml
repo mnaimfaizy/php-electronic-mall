@@ -1,21 +1,21 @@
-version: '3.9'
+version: "3.9"
 services:
-  php_electronic_mall_app:
-    container_name: php_electronic_mall_app
+  emall_app:
+    container_name: emall_app
     build:
       context: ./
       dockerfile: Dockerfile
     depends_on:
-      - php_electronics_mall_db
+      - emall_db
     volumes:
       - ./:/var/www/html
     ports:
       - 9003:80
     networks:
-      - php_electronics_mall_net
+      - emall_net
 
-  php_electronics_mall_db:
-    container_name: php_electronics_mall_db
+  emall_db:
+    container_name: emall_db
     image: mysql
     restart: always
     environment:
@@ -25,13 +25,31 @@ services:
       MYSQL_PASSWORD: "Kabul@123"
     volumes:
       - ./mysql_data:/var/lib/mysql
+      - ./admin/sql:/docker-entrypoint-initdb.d
     ports:
       - "33069:3306"
     networks:
-      - php_electronics_mall_net
+      - emall_net
+
+  emall_phpmyadmin:
+    container_name: emall_phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      - emall_db
+    environment:
+      PMA_HOST: emall_db
+      PMA_PORT: 3306
+      PMA_USER: admin
+      PMA_PASSWORD: "Kabul@123"
+      MYSQL_ROOT_PASSWORD: "Kabul@123"
+    ports:
+      - "8080:80"
+    networks:
+      - emall_net
 
 volumes:
   mysql_data:
 
 networks:
-  php_electronics_mall_net:
+  emall_net:

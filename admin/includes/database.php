@@ -3,11 +3,11 @@
 class MySQLDatabase {
 
 	# Database Connection Variables
-	protected $_db_server = '192.168.1.104';
+	protected $_db_server = 'emall_db';
 	protected $_db_user		= 'root';
 	protected $_db_pass		= 'Kabul@123';
 	protected $_db_name		= 'php_electronics_mall';
-	protected  $_db_port 	= 33069;
+	protected  $_db_port 	= 3306;
 
 	# Other variables used in the entire class
 	private $connection;
@@ -25,7 +25,7 @@ class MySQLDatabase {
 	public function open_connection() {
 		$this->connection = mysqli_connect($this->_db_server, $this->_db_user, $this->_db_pass, $this->_db_name, $this->_db_port);
 		if(!$this->connection) {
-			die("Database connection failed: " . mysqli_error());	# check database is connected or through errors
+			die("Database connection failed: " . mysqli_error($this->connection));	# check database is connected or through errors
 		}
 	}
 
