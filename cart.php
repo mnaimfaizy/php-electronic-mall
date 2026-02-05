@@ -15,13 +15,11 @@ if(isset($_POST['product_id'])) {
 		// RUN IF THE CART HAS AT LEASE ONE ITEM IN IT
 		foreach($_SESSION['cart_array'] as $each_item) {
 			$i++;
-			while(list($key, $value) = each($each_item)) {
-				if($key == "item_id" && $value == $pid) {
-					// That item is in cart already so let's adjust its quantity using array_splice()
-					array_splice($_SESSION['cart_array'], $i-1, 1, array(array("item_id" => $pid, "quantity" => $each_item['quantity'] + 1)));
-					$wasFound = true;
-				} // close If Condition
-			} // close while loop
+			if($each_item['item_id'] == $pid) {
+				// That item is in cart already so let's adjust its quantity using array_splice()
+				array_splice($_SESSION['cart_array'], $i-1, 1, array(array("item_id" => $pid, "quantity" => $each_item['quantity'] + 1)));
+				$wasFound = true;
+			} // close If Condition
 		} // close Foreach Loop
 		if($wasFound == false) {
 			array_push($_SESSION['cart_array'], array('item_id' => $pid, 'quantity' => 1));	
@@ -58,12 +56,10 @@ if(isset($_POST['item_to_adjust']) && $_POST['item_to_adjust'] != "") {
 	$i = 0;
 	foreach($_SESSION['cart_array'] as $each_item) {
 		$i++;
-		while(list($key, $value) = each($each_item)) {
-			if($key == "item_id" && $value == $item_to_adjust) {
-				// That item is in cart already so let's adjust its quantity using array_splice()
-	array_splice($_SESSION['cart_array'], $i-1, 1, array(array("item_id" => $item_to_adjust, "quantity" => $quantity)));
-			} // close If Condition
-		} // close while loop
+		if($each_item['item_id'] == $item_to_adjust) {
+			// That item is in cart already so let's adjust its quantity using array_splice()
+			array_splice($_SESSION['cart_array'], $i-1, 1, array(array("item_id" => $item_to_adjust, "quantity" => $quantity)));
+		} // close If Condition
 	} // close Foreach Loop
 }
 ?>

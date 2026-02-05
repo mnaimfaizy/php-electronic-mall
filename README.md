@@ -473,16 +473,34 @@ PayPal orders are tracked separately in the admin panel with dedicated managemen
 
 ## Screenshots
 
-_(Add screenshots of your application here)_
+### Customer Interface
 
-- Homepage with product slider
-- Product listing page
-- Product detail page with reviews
-- Shopping cart
-- Checkout process
-- Admin dashboard
-- Product management
-- Order management
+#### Homepage
+
+![Homepage](screenshots/home-page.png)
+_Homepage featuring product slider, category navigation, and featured products_
+
+#### Shopping Cart
+
+![Shopping Cart](screenshots/shopping-cart.png)
+_Shopping cart with item management, shipping calculation, and checkout options_
+
+### Admin Panel
+
+#### Admin Dashboard
+
+![Admin Dashboard](screenshots/admin-dashboard.png)
+_Admin dashboard with statistics, recent orders, and quick access controls_
+
+#### Order Management
+
+![Admin Orders](screenshots/admin-orders.png)
+_Order management interface for processing and tracking customer orders_
+
+#### User Management
+
+![Admin Users](screenshots/admin-users.png)
+_User management panel for managing customer accounts and permissions_
 
 ## Security Considerations
 
